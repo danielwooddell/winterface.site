@@ -8788,3 +8788,56 @@ body.winterface-offline .interface-section .interface-shell {
   background:
     radial-gradient(circle, rgba(182, 132, 255, 0.13), transparent 62%) !important;
 }
+/* =========================
+   WINTERFACE THEME SCOPE FIX - WInterface Shell Only
+   Keeps the custom theme on the WInterface itself and removes the theme wash
+   from the page area behind it. CSS-only: no HTML, JS, layout, content,
+   audio, or rail-spacing changes.
+========================= */
+
+.interface-section {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Keep the normal section divider/transition line instead of allowing a full-width themed wash. */
+.interface-section::before {
+  opacity: 1 !important;
+  background: linear-gradient(90deg, transparent, rgba(56,189,248,0.48), rgba(139,92,246,0.42), rgba(236,72,153,0.28), transparent) !important;
+  background-size: auto !important;
+}
+
+/* Disable full-section decorative overlays. The actual theme remains on .interface-shell and child panels. */
+.interface-section::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  box-shadow: none !important;
+}
+
+.interface-section .interface-shell {
+  position: relative;
+  isolation: isolate;
+}
+
+.interface-section .interface-shell::before,
+.interface-section .interface-shell::after,
+.interface-section .interface-ambient {
+  pointer-events: none;
+}
+
+.interface-section .interface-shell::before,
+.interface-section .interface-shell::after {
+  z-index: 0;
+}
+
+.interface-section .interface-ambient {
+  z-index: 1;
+}
+
+.interface-section .interface-status-bar,
+.interface-section .interface-grid {
+  position: relative;
+  z-index: 2;
+}
+
